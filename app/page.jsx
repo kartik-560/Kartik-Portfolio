@@ -281,7 +281,7 @@ export default function Home() {
   const [showControlPanel, setShowControlPanel] = useState(false);
   const themeConfig = THEMES[activeTheme];
   return (
-    <div className="min-h-screen pt-14 md:pt-16">
+    <div className="min-h-screen pt-14 md:pt-16 ">
 
       <section className="min-h-[85vh] md:min-h-[90vh] flex items-center justify-center relative overflow-hidden">
 
@@ -313,7 +313,7 @@ export default function Home() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2, type: "spring", stiffness: 125 }}
-                className="inline-flex items-center px-3 md:px-4 py-1 md:py-2 mb-4 md:mb-6 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 rounded-full text-xs md:text-sm text-cyan-400"
+                className="inline-flex items-center px-3 md:px-4 py-1 md:py-2 mt-8 mb-4 md:mb-6 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 rounded-full text-xs md:text-sm text-cyan-400"
               >
                 <Sparkles className="w-3 h-3 md:w-4 md:h-4 mr-2" />
                 Student & Available for freelance work
@@ -344,19 +344,21 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              // 1. Changed flex-col to flex-row and added a max-width
+              className="flex flex-row gap-3 sm:gap-4 justify-center items-center w-full max-w-md mx-auto px-4 sm:px-0"
             >
-              <Button className="w-full sm:w-auto max-w-xs px-6 py-3 md:px-8 md:py-4 text-sm md:text-base">
-                <a href="#contact" className="flex items-center justify-center gap-2">
+              {/* 2. Added flex-1 (to split space 50/50), reduced mobile px/py, and reduced text size to text-xs */}
+              <Button className="flex-1 sm:flex-none sm:w-auto px-2 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-4 text-xs sm:text-sm md:text-base">
+                <a href="#contact" className="flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap">
                   Hire Me
-                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                 </a>
               </Button>
 
-              <Button variant="outline" className="w-full sm:w-auto max-w-xs px-6 py-3 md:px-8 md:py-4 text-sm md:text-base">
-                <a href="#projects" className="flex items-center justify-center gap-2">
+              <Button variant="outline" className="flex-1 sm:flex-none sm:w-auto px-2 py-2.5 sm:px-6 sm:py-3 md:px-8 md:py-4 text-xs sm:text-sm md:text-base">
+                <a href="#projects" className="flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap">
                   View Work
-                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                 </a>
               </Button>
             </motion.div>
@@ -366,7 +368,8 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="mt-8 md:mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto px-4"
+              // 1. Changed base grid to grid-cols-2 and reduced the mobile gap slightly
+              className="mt-8 md:mt-10 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 max-w-4xl mx-auto px-4"
             >
               {[
                 { number: "10+", label: "Projects Built" },
@@ -375,7 +378,8 @@ export default function Home() {
                   number: "100%",
                   label: "Dedicated Delivery",
                   icon: (
-                    <svg className="w-6 h-6 md:w-8 md:h-8 text-emerald-400 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    // Adjusted icon size for mobile
+                    <svg className="w-5 h-5 md:w-8 md:h-8 text-emerald-400 inline-block mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   )
@@ -386,15 +390,19 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 + index * 0.1 }}
-                  className="text-center p-6 md:p-8 bg-[#0b0f19]/80 backdrop-blur-sm border border-slate-800/80 rounded-2xl shadow-lg flex flex-col justify-center items-center"
+                  // 2. Reduced mobile padding (p-4) and made the 3rd card span full width on mobile (col-span-2)
+                  className={`text-center p-4 sm:p-6 md:p-8 bg-[#0b0f19]/80 backdrop-blur-sm border border-slate-800/80 rounded-2xl shadow-lg flex flex-col justify-center items-center ${index === 2 ? 'col-span-2 md:col-span-1' : ''
+                    }`}
                 >
-                  <div className="text-2xl md:text-4xl font-bold mb-2 flex items-center justify-center">
+                  {/* 3. Scaled down the number text for mobile so it fits in the split columns */}
+                  <div className="text-xl sm:text-2xl md:text-4xl font-bold mb-1 md:mb-2 flex items-center justify-center">
                     {stat.icon}
                     <span className={index === 2 ? "text-emerald-400" : "bg-gradient-to-r from-pink-500 to-purple-400 bg-clip-text text-transparent"}>
                       {stat.number}
                     </span>
                   </div>
-                  <div className="text-xs md:text-sm text-gray-400 font-medium">
+                  {/* 4. Scaled down the label text slightly for mobile */}
+                  <div className="text-[11px] sm:text-xs md:text-sm text-gray-400 font-medium">
                     {stat.label}
                   </div>
                 </motion.div>
